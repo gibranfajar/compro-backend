@@ -16,7 +16,7 @@ var DB *gorm.DB
 // ConnectDatabase menginisialisasi koneksi database
 func ConnectDatabase() {
 	// Ubah sesuai dengan kredensial database Anda
-	dsn := "admin:admin@2004@tcp(127.0.0.1:3306)/db_latihan?charset=utf8mb4&parseTime=True&loc=Local"
+	dsn := "sitb1411_user:Sitetech@2024@tcp(sitetech.my.id:3306)/sitb1411_db_golang?charset=utf8mb4&parseTime=True&loc=Local"
 	database, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		log.Fatal("Failed to connect to database:", err)
