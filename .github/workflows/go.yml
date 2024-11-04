@@ -20,7 +20,12 @@ jobs:
           chmod 600 id_rsa
           mkdir -p ~/.ssh
           echo "StrictHostKeyChecking no" >> ~/.ssh/config
+          mv id_rsa ~/.ssh/id_rsa  # Pindahkan ke ~/.ssh
 
       - name: Deploy
+        env:
+          SSH_AUTH_SOCK: /tmp/ssh_auth_sock  # Gunakan environment variable untuk SSH_AUTH_SOCK
         run: |
-          ssh -i id_rsa gibran@103.102.153.62 'cd /var/www/golang-test && git pull origin main && go build && ./golang-test'
+          eval "$(ssh-agent -s)"  # Memulai ssh-agent
+          ssh-add ~/.ssh/id_rsa  # Menambahkan kunci SSH
+          ssh -p 1991 gibran@103.102.153.62 'cd /var/www/golang-test && git pull origin main && go build && ./golang-test'
